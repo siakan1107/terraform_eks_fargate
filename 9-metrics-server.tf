@@ -9,7 +9,7 @@ provider "helm" {
     }
   }
 }
-resource "helm_release" "metrics-server" {
+resource "helm_release" "metrics-server-kb" {
   name = "metrics-server"
 
   repository = "https://kubernetes-sigs.github.io/metrics-server/"
