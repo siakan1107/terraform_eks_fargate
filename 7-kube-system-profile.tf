@@ -1,20 +1,20 @@
 data "aws_eks_cluster_auth" "eks" {
-  name = aws_eks_cluster.cluster.id
+  name = aws_eks_cluster.cluster-kb.id
 }
 
 resource "null_resource" "k8s_patcher" {
   depends_on = [aws_eks_fargate_profile.kube-system]
 
   triggers = {
-    endpoint = aws_eks_cluster.cluster.endpoint
-    ca_crt   = base64decode(aws_eks_cluster.cluster.certificate_authority[0].data)
+    endpoint = aws_eks_cluster.cluster-kb.endpoint
+    ca_crt   = base64decode(aws_eks_cluster.cluster-kb.certificate_authority[0].data)
     token    = data.aws_eks_cluster_auth.eks.token
   }
 
   provisioner "local-exec" {
     command = <<EOH
 cat >/tmp/ca.crt <<EOF
-${base64decode(aws_eks_cluster.cluster.certificate_authority[0].data)}
+${base64decode(aws_eks_cluster.cluster-kb.certificate_authority[0].data)}
 EOF
 kubectl \
   --server="${aws_eks_cluster.cluster.endpoint}" \
