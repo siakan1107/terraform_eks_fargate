@@ -12,24 +12,25 @@ resource "null_resource" "k8s_patcher" {
   }
 
   provisioner "local-exec" {
-    command = <<EOH
-cat >/tmp/ca.crt <<EOF
-${base64decode(aws_eks_cluster.cluster-kb.certificate_authority[0].data)}
-EOF
-kubectl \
+  command = <<EOH
+  cat >/tmp/ca.crt <<EOF
+  ${base64decode(aws_eks_cluster.cluster-kb.certificate_authority[0].data)}
+  EOF
+  kubectl \
   --server="${aws_eks_cluster.cluster-kb.endpoint}" \
   --certificate_authority=/tmp/ca.crt \
   --token="${data.aws_eks_cluster_auth.eks.token}" \
   patch deployment coredns \
   -n kube-system --type json \
   -p='[{"op": "remove", "path": "/spec/template/metadata/annotations/eks.amazonaws.com~1compute-type"}]'
-EOH
-  }
+  EOH
+ }
 
-  lifecycle {
+ lifecycle {
     ignore_changes = [triggers]
   }
 }
+
 resource "aws_iam_role" "eks-fargate-kb-profile" {
   name = "eks-fargate-profile-kb"
 
