@@ -36,15 +36,15 @@ resource "aws_eks_fargate_profile" "kube-system" {
 }
 
 resource "aws_eks_fargate_profile" "staging" {
-  cluster_name           = aws_eks_cluster.cluster.name
+  cluster_name           = aws_eks_cluster.cluster-kb.name
   fargate_profile_name   = "staging"
-  pod_execution_role_arn = aws_iam_role.eks-fargate-profile.arn
+  pod_execution_role_arn = aws_iam_role.eks-fargate-kb-profile.arn
 
   # These subnets must have the following resource tag: 
   # kubernetes.io/cluster/<CLUSTER_NAME>.
   subnet_ids = [
-    aws_subnet.private-us-east-1a.id,
-    aws_subnet.private-us-east-1b.id
+    aws_subnet.private-eu-west-2a.id,
+    aws_subnet.private-eu-west-2b.id
   ]
 
   selector {
