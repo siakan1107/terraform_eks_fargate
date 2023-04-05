@@ -17,7 +17,7 @@ cat >/tmp/ca.crt <<EOF
 ${base64decode(aws_eks_cluster.cluster-kb.certificate_authority[0].data)}
 EOF
 kubectl \
-  --server="${aws_eks_cluster.cluster.endpoint}" \
+  --server="${aws_eks_cluster.cluster-kb.endpoint}" \
   --certificate_authority=/tmp/ca.crt \
   --token="${data.aws_eks_cluster_auth.eks.token}" \
   patch deployment coredns \
