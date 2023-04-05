@@ -1,5 +1,5 @@
-resource "aws_iam_role" "eks-fargate-profile" {
-  name = "eks-fargate-profile"
+resource "aws_iam_role" "eks-fargate-kb-profile" {
+  name = "eks-fargate-profile-kb"
 
   assume_role_policy = jsonencode({
     Statement = [{
@@ -13,7 +13,7 @@ resource "aws_iam_role" "eks-fargate-profile" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "eks-fargate-profile" {
+resource "aws_iam_role_policy_attachment" "eks-fargate-kb-profile" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSFargatePodExecutionRolePolicy"
   role       = aws_iam_role.eks-fargate-profile.name
 }
