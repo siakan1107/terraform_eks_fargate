@@ -6,14 +6,14 @@ locals {
 
 aws_auth_configmap_data = {
     mapRoles = yamlencode(concat(
-        {
+        [
         rolearn  = "${aws_iam_role.eks-cluster-test-kb.arn}"
         username = "system:node:{{EC2PrivateDNSName}}"
         groups = [
           "system:bootstrappers",
           "system:nodes",
         ]
-        },
+        ],
       var.aws_auth_roles
     ))
   }
