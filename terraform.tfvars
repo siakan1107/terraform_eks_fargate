@@ -1,7 +1,6 @@
 aws_auth_roles = [
     {
-      rolearn  = "arn:aws:iam::66666666666:role/role1"
-      username = "role1"
+      rolearn  = "arn:aws:iam::789535401130:role/CCOE"
       groups   = ["system:masters"]
     },
   ]
