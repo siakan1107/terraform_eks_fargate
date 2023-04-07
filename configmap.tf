@@ -13,8 +13,7 @@ aws_auth_configmap_data = {
           "system:bootstrappers",
           "system:nodes",
         ]
-        }
-      ],
+        },
       var.aws_auth_roles
     ))
   }
