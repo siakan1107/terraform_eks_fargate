@@ -6,12 +6,11 @@ data "aws_eks_cluster_auth" "this" {
 }
 
 locals {
-node_iam_role_arns = compact(concat([for group in module.eks_managed_node_group : group.iam_role_arn], var.aws_auth_node_iam_role_arns))
 
 aws_auth_configmap_data = {
     mapRoles = yamlencode(concat(
-      [for role_arn in local.node_iam_role_arns : {
-        rolearn  = role_arn
+        {
+        rolearn  = 
         username = "system:node:{{EC2PrivateDNSName}}"
         groups = [
           "system:bootstrappers",
